@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url:
+    username:
+    password:
+cloud:
+  aws:
+    credentials:
+      access-key:
+      secret-key:
+    region:
+      static:
+    stack:
+      auto: false
+    s3:
+      bucket:
+
