@@ -15,12 +15,12 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    @PostMapping(value = "/auth/users/login")
+    @PostMapping(value = "api/v1/auth/users/login")
     public ResponseEntity<UserResponseDto> signin(@RequestBody UserCreateRequestDto requestDto) throws Exception {
         return new ResponseEntity<>(userService.login(requestDto), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/auth/users/signup")
+    @PostMapping(value = "api/v1/auth/users/signup")
     public ResponseEntity<Boolean> signup(@RequestBody UserCreateRequestDto requestDto) throws Exception {
         return new ResponseEntity<>(userService.register(requestDto), HttpStatus.OK);
     }
