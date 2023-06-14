@@ -1,13 +1,11 @@
 package com.techeer.suremarket.controller.DTO;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
+@Builder
 @Getter
-@Setter
-public class UserCreateRequestDto {
-
+public class LoginRequestDto {
     private String name;
-    private String email;
     private String password;
-
 }
