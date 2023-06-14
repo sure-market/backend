@@ -36,8 +36,8 @@ public class JwtProvider {
         secretKey = Keys.hmacShaKeyFor(salt.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String createToken(String account, List<Authority> roles) {
-        Claims claims = Jwts.claims().setSubject(account);
+    public String createToken(String userName, List<Authority> roles) {
+        Claims claims = Jwts.claims().setSubject(userName);
         claims.put("roles", roles);
         Date now = new Date();
 
@@ -50,7 +50,8 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(token);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(getName(token));
+        
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
