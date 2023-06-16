@@ -1,6 +1,8 @@
 package com.techeer.suremarket.controller;
 
+import com.techeer.suremarket.controller.DTO.LoginResponseDto;
 import com.techeer.suremarket.controller.DTO.UserCreateRequestDto;
+import com.techeer.suremarket.controller.DTO.LoginRequestDto;
 import com.techeer.suremarket.controller.DTO.UserResponseDto;
 import com.techeer.suremarket.domain.user.UserRepository;
 import com.techeer.suremarket.service.UserService;
@@ -15,12 +17,12 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    @PostMapping(value = "api/v1/auth/users/login")
-    public ResponseEntity<UserResponseDto> signin(@RequestBody UserCreateRequestDto requestDto) throws Exception {
+    @PostMapping(value = "/auth/users/login")
+    public ResponseEntity<LoginResponseDto> signin(@RequestBody LoginRequestDto requestDto) throws Exception {
         return new ResponseEntity<>(userService.login(requestDto), HttpStatus.OK);
     }
 
-    @PostMapping(value = "api/v1/auth/users/signup")
+    @PostMapping(value = "/auth/users/signup")
     public ResponseEntity<Boolean> signup(@RequestBody UserCreateRequestDto requestDto) throws Exception {
         return new ResponseEntity<>(userService.register(requestDto), HttpStatus.OK);
     }
