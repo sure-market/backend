@@ -53,4 +53,9 @@ public class PostsController {
         s3Service.uploadFiles(postId, multipartFiles);
     }
 
+    @PostMapping("/api/v1/articles/like")
+    public void like(
+            @RequestParam(value = "postId") Long postId) {
+        s3Service.uploadFiles(postId);
+    }
 }
