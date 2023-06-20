@@ -3,6 +3,8 @@ package com.techeer.suremarket.service;
 import com.techeer.suremarket.controller.DTO.PostIdResponseDto;
 import com.techeer.suremarket.controller.DTO.PostResponseDto;
 import com.techeer.suremarket.controller.DTO.PostsRequestDto;
+import com.techeer.suremarket.domain.like.PostLike;
+import com.techeer.suremarket.domain.like.PostLikeRepository;
 import com.techeer.suremarket.domain.posts.Posts;
 import com.techeer.suremarket.domain.posts.PostsRepository;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
+    private final PostLikeRepository postLikeRepository;
     private final S3Service s3Service;
 
     @Transactional
@@ -55,5 +58,15 @@ public class PostsService {
         return postsRepository.findAll().stream()
                 .map(PostResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void saveLike(Integer postId,Integer userId){
+        postLikeRepository.save(
+                PostLike.builder()
+                        .postLikeId(postId)
+                        .userId(userId)
+                        .idDeleted(false)
+                        .build());
     }
 }
