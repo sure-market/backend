@@ -1,17 +1,10 @@
 package com.techeer.suremarket.domain.like;
 
-import com.techeer.suremarket.controller.DTO.PostsRequestDto;
-import com.techeer.suremarket.domain.BaseTimeEntity;
-import com.techeer.suremarket.domain.image.Images;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,20 +14,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "post_like")
 @Builder
-public class Like extends BaseTimeEntity {
+public class PostLike {
     @Id
     @Column(name = "like_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likeId;
 
-    @Column(name = "post_like_id")
-    private Long postLikeId;
+    @Column(name = "post_id_like")
+    private Integer postLikeId;
 
     @Column(name = "user_id")
-    private String userId;
+    private Integer userId;
 
     @Column(name = "is_deleted")
-    private String idDeleted;
+    private Boolean idDeleted;
 }
