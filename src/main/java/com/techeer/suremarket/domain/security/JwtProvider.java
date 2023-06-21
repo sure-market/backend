@@ -1,8 +1,10 @@
 package com.techeer.suremarket.domain.security;
 
 import com.techeer.suremarket.domain.user.Authority;
+import com.techeer.suremarket.domain.user.UserRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import javax.persistence.criteria.CriteriaBuilder.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +32,7 @@ public class JwtProvider {
     private final long exp = 1000L * 60 * 60;
 
     private final JpaUserDetailsService userDetailsService;
+    private final UserRepository userRepository;
 
     @PostConstruct
     protected void init() {
@@ -65,6 +68,10 @@ public class JwtProvider {
             e.printStackTrace();
         }
         return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Integer getId(String token){
+        return userRepository.findByName(getName(token.substring(7))).get().getId();
     }
 
     public String resolveToken(HttpServletRequest request) {

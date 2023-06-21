@@ -3,6 +3,7 @@ package com.techeer.suremarket.controller;
 import com.techeer.suremarket.controller.DTO.PostIdResponseDto;
 import com.techeer.suremarket.controller.DTO.PostResponseDto;
 import com.techeer.suremarket.controller.DTO.PostsRequestDto;
+import com.techeer.suremarket.domain.security.JwtProvider;
 import com.techeer.suremarket.service.PostsService;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class PostsController {
     private final PostsService postsService;
     private final S3Service s3Service;
-
+    private final JwtProvider jwtProvider;
 
     @PostMapping("/api/v1/articles")
     public PostIdResponseDto save(
@@ -53,4 +54,11 @@ public class PostsController {
         s3Service.uploadFiles(postId, multipartFiles);
     }
 
+    @PostMapping("/api/v1/articles/like")
+    public void like(
+            @RequestHeader String Authorization,
+            @RequestParam(value = "postId") Integer postId) {
+        Integer t = jwtProvider.getId(Authorization);
+        postsService.saveLike(postId, jwtProvider.getId(Authorization));
+    }
 }
