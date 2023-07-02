@@ -42,7 +42,7 @@ public class UserService {
                 .build();
     }
 
-    public boolean register(UserCreateRequestDto requestDto) throws Exception {
+    public Boolean register(UserCreateRequestDto requestDto) throws Exception {
         try {
             User user = User.builder()
                     .name(requestDto.getName())
@@ -53,11 +53,11 @@ public class UserService {
             user.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
 
             userRepository.save(user);
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new Exception("잘못된 요청입니다.");
         }
-        return true;
     }
 
     public UserResponseDto getUser(String name) throws Exception {
