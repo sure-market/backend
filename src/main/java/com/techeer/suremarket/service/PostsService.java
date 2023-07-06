@@ -23,10 +23,11 @@ public class PostsService {
 
     @Transactional
     public PostIdResponseDto savePost(PostsRequestDto requestDto, List<MultipartFile> files){
+        Posts post = requestDto.toEntity();
         PostIdResponseDto postIdResponseDto = PostIdResponseDto.builder()
-                .postId(postsRepository.save(requestDto.toEntity()).getPostId())
+                .postId(postsRepository.save(post).getPostId())
                 .build();
-        s3Service.uploadFiles(postIdResponseDto.getPostId(), files);
+        s3Service.uploadFiles(post, files);
         return postIdResponseDto;
     }
 

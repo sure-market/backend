@@ -7,6 +7,7 @@ import com.techeer.suremarket.controller.DTO.S3ImageDto;
 
 import com.techeer.suremarket.domain.image.Images;
 import com.techeer.suremarket.domain.image.ImagesRepository;
+import com.techeer.suremarket.domain.posts.Posts;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -36,7 +37,7 @@ public class S3Service {
     /**
      * S3로 파일 업로드
      */
-    public Long uploadFiles(Long postId, List<MultipartFile> multipartFiles) {
+    public Long uploadFiles(Posts post, List<MultipartFile> multipartFiles) {
 
         List<S3ImageDto> s3files = new ArrayList<>();
 
@@ -56,6 +57,7 @@ public class S3Service {
                 amazonS3Client.putObject(
                         new PutObjectRequest(bucketName, uploadFileName, inputStream, objectMetadata));
                 imagesRepository.save(Images.builder()
+                            .postId(post)
                             .uuid(uploadFileName)
                             .build()
                         );
@@ -68,7 +70,7 @@ public class S3Service {
                 log.error("Filed upload failed", e);
             }
         }
-        return postId;
+        return post.getPostId();
     }
 
     /**

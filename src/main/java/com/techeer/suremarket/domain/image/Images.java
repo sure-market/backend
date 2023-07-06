@@ -32,9 +32,10 @@ public class Images {
     private Boolean isDeleted;
 
     @Builder
-    public Images(String uuid) {
+    public Images(String uuid, Posts postId) {
         this.uuid = uuid;
         this.isDeleted = false;
+        this.postId = postId;
     }
 
     public int removeImage() {

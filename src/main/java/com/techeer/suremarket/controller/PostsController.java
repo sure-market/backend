@@ -47,12 +47,12 @@ public class PostsController {
         return postsService.updatePost(postId, requestDto);
     }
 
-    @PostMapping("/api/v1/articles/uploads")
-    public void uploadFiles(
-            @RequestParam(value = "postId") Long postId,
-            @RequestPart(value = "files") List<MultipartFile> multipartFiles) {
-        s3Service.uploadFiles(postId, multipartFiles);
-    }
+//    @PostMapping("/api/v1/articles/uploads")
+//    public void uploadFiles(
+//            @RequestParam(value = "postId") Long postId,
+//            @RequestPart(value = "files") List<MultipartFile> multipartFiles) {
+//        s3Service.uploadFiles(postId, multipartFiles);
+//    }
 
     @PostMapping("/api/v1/articles/like")
     public void like(
