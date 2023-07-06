@@ -16,8 +16,10 @@ public class PostResponseDto {
     private Long postId;
     private List<String> image;
     private String title;
+    private String content;
     private Long price;
     private String region;
+    private String category;
     private LocalDateTime updatedAt;
     //private Integer stars; 나중에 찜 갯수 넣어야함
 
@@ -28,7 +30,9 @@ public class PostResponseDto {
         this.image = post.getImages().stream()
                 .map(images -> "https://team-is-image.s3.ap-northeast-2.amazonaws.com/" + images.getUuid())
                 .collect(Collectors.toList());
+        this.content = post.getContent();
         this.title = post.getTitle();
+        this.category = post.getCategory();
         this.price = post.getPrice();
         this.region = post.getRegion();
         this.updatedAt = post.getUpdatedAt();
