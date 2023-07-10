@@ -10,8 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "post_like")
@@ -23,10 +25,10 @@ public class PostLike {
     private Long likeId;
 
     @Column(name = "post_id_like")
-    private Integer postLikeId;
+    private Long postLikeId;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     @Column(name = "is_deleted")
     private Boolean idDeleted;
