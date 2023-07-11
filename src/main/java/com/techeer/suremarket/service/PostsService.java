@@ -67,21 +67,22 @@ public class PostsService {
     }
 
     @Transactional
-    public void saveLike(PostLikeRequestDto postLikeRequestDto, HttpServletRequest request){
+    public PostLike saveLike(PostLikeRequestDto postLikeRequestDto, HttpServletRequest request){
         String accessToken = jwtProvider.resolveToken(request);
-         Optional<PostLike> postLike = postLikeRepository.findByPostIdAndUserId(postLikeRequestDto.getPostId(),
+         Optional<PostLike> postLike = postLikeRepository.findByPostLikeIdAndUserId(postLikeRequestDto.getPostId(),
                 Long.parseLong(jwtProvider.getAuthentication(accessToken).getName()));
         if(postLike.isPresent()) { // 좋아요 삭제 혹은 재생성
-            boolean status = postLike.get().getIdDeleted();
-            postLike.get().setIdDeleted(!status);
+            boolean status = postLike.get().getIsDeleted();
+            postLike.get().setIsDeleted(!status);
+            return postLike.get();
         }
         else { // 좋아요 새로 생성
-            postLikeRepository.save(
+            return postLikeRepository.save(
                     PostLike.builder()
                             .postLikeId(postLikeRequestDto.getPostId())
                             .userId(Long.parseLong(
                                     jwtProvider.getAuthentication(accessToken).getName()))
-                            .idDeleted(false)
+                            .isDeleted(false)
                             .build());
         }
     }

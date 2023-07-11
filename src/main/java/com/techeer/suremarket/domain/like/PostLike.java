@@ -31,5 +31,5 @@ public class PostLike {
     private Long userId;
 
     @Column(name = "is_deleted")
-    private Boolean idDeleted;
+    private Boolean isDeleted;
 }

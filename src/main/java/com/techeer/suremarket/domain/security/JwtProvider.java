@@ -70,7 +70,7 @@ public class JwtProvider {
         return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 
-    public Integer getId(String token){
+    public Long getId(String token){
         return userRepository.findByName(getName(token.substring(7))).get().getId();
     }
 
