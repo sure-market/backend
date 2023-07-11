@@ -21,7 +21,7 @@ public class ProfileController {
 
 
     @GetMapping("api/v1/profile/likes")
-    public List<Posts> getMyLikes(HttpServletRequest request){
+    public List<PostResponseDto> getMyLikes(HttpServletRequest request){
         return profileService.likePosts(request);
     }
 }

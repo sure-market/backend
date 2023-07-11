@@ -26,11 +26,13 @@ public class ProfileService {
                 .stream().map(PostResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<Posts> likePosts(HttpServletRequest request){
+    public List<PostResponseDto> likePosts(HttpServletRequest request){
 
         String accessToken = jwtProvider.resolveToken(request);
         Optional<List<PostLike>> postLike = postLikeRepository.findAllByUserIdAndIsDeletedFalse(jwtProvider.getId(accessToken));
+        return postLike.get()
+                .stream().map(post -> postsRepository.findByPostId(post.getPostLikeId())).collect(Collectors.toList())
+                .stream().map(PostResponseDto::new).collect(Collectors.toList());
 
-        return postLike.get().stream().map(post -> postsRepository.findByPostId(post.getPostLikeId())).collect(Collectors.toList());
     }
 }
